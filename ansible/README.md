@@ -18,7 +18,7 @@ ansible --version
 ```sh
 sudo nano /etc/ansible/hosts
 ```
-See full /ansible/inventory/all_hosts.ini for template hosts.ini file // https://raw.githubusercontent.com/itshughboi/iac/refs/heads/main/ansible/inventory/all_hosts.ini
+Option 1: See full /ansible/inventory/all_hosts.ini for template hosts.ini file // https://raw.githubusercontent.com/itshughboi/iac/refs/heads/main/ansible/inventory/all_hosts.ini
 
 ```
 [k3s]
@@ -41,7 +41,7 @@ See full /ansible/inventory/all_hosts.ini for template hosts.ini file // https:/
 ```
 
 
-inventory.yaml // https://raw.githubusercontent.com/itshughboi/iac/refs/heads/main/ansible/inventory/inventory.yaml
+Option 2: inventory.yaml // https://raw.githubusercontent.com/itshughboi/iac/refs/heads/main/ansible/inventory/inventory.yaml
 ```
 all:
   children:
