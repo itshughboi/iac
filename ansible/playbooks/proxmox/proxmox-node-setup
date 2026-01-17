@@ -1,9 +1,18 @@
-- name: Normalize and configure Proxmox nodes
+---
+- name: Configure and cluster Proxmox nodes
   hosts: pve
   gather_facts: yes
   become: true
+  serial: 1   # one node at a time to avoid race conditions
+
+  vars:
+    cluster_master_ip: "{{ hostvars[groups['pve'][0]]['ansible_host'] }}"
 
   tasks:
+
+    ########################
+    # System normalization #
+    ########################
 
     - name: Set timezone
       timezone:
@@ -35,26 +44,63 @@
         name: "{{ common_packages }}"
         state: present
 
-    - name: Check if cluster exists (first node)
+    ########################
+    # Cluster setup        #
+    ########################
+
+    - name: Check if node is already in a cluster
       command: pvecm status
       register: cluster_status
       ignore_errors: true
-      when: inventory_hostname == "pve-srv-1"
 
-    - name: Create cluster on first node
+    - name: Create cluster on master node
       command: pvecm create {{ pve_cluster_name }}
       when:
-        - inventory_hostname == "pve-srv-1"
+        - inventory_hostname == groups['pve'][0]
         - cluster_status.failed
 
-    - name: Check if node is already in cluster
+    - name: Wait for cluster quorum on master node
       command: pvecm status
-      register: join_check
-      ignore_errors: true
-      when: inventory_hostname != "pve-srv-1"
+      register: quorum_check
+      retries: 5
+      delay: 10
+      until: "'Quorate' in quorum_check.stdout"
+      when: inventory_hostname == groups['pve'][0]
 
-    - name: Join node to cluster
-      command: pvecm add 10.10.10.1 --use_ssh
+    - name: Join node to cluster if not master
+      command: pvecm add {{ cluster_master_ip }} --use_ssh
       when:
-        - inventory_hostname != "pve-srv-1"
-        - join_check.failed
+        - inventory_hostname != groups['pve'][0]
+        - cluster_status.failed
+
+    - name: Verify node is now in cluster
+      command: pvecm status
+      register: post_join
+      failed_when: "'Quorate' not in post_join.stdout and inventory_hostname == groups['pve'][0]"
+
+
+
+ ########################
+    # Firewall setup       #
+    ########################
+
+    - name: Enable Proxmox firewall
+      command: pve-firewall enable
+      ignore_errors: yes
+
+    - name: Allow SSH in Proxmox firewall
+      command: pve-firewall localnet add --rule "in accept tcp dport 22"
+      ignore_errors: yes
+
+    - name: Allow Proxmox Web UI
+      command: pve-firewall localnet add --rule "in accept tcp dport 8006"
+      ignore_errors: yes
+
+    - name: Allow cluster communication (pvecm)
+      command: >
+        pve-firewall localnet add --rule "in accept udp dport 5404:5405"
+      ignore_errors: yes
+
+    - name: Reload Proxmox firewall
+      command: pve-firewall reload
+      ignore_errors: yes
