@@ -14,7 +14,7 @@ ansible --version
 ```
 
 ### Inventory
-1. Edit Hosts file
+1. While you can use the Hosts file by running the below command, it's better to create a new inventory.yaml file to target machines better. Below though is if I want to use hosts file
 ```sh
 sudo nano /etc/ansible/hosts
 ```
@@ -40,6 +40,11 @@ See full /ansible/inventory/all_hosts.ini for template hosts.ini file
 10.10.30.13
 ```
 
+
+inventory.yaml
+```
+
+```
 
 
 ### SSH Keys
