@@ -1,0 +1,60 @@
+- name: Normalize and configure Proxmox nodes
+  hosts: pve
+  gather_facts: yes
+  become: true
+
+  tasks:
+
+    - name: Set timezone
+      timezone:
+        name: "{{ timezone }}"
+
+    - name: Disable enterprise repo if not used
+      file:
+        path: /etc/apt/sources.list.d/pve-enterprise.list
+        state: absent
+      when: not pve_enterprise_repo
+
+    - name: Add no-subscription repo if needed
+      copy:
+        dest: /etc/apt/sources.list.d/pve-no-subscription.list
+        content: |
+          deb http://download.proxmox.com/debian/pve bookworm pve-no-subscription
+      when: pve_no_subscription_repo
+
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Upgrade all packages
+      apt:
+        upgrade: dist
+
+    - name: Install common packages
+      apt:
+        name: "{{ common_packages }}"
+        state: present
+
+    - name: Check if cluster exists (first node)
+      command: pvecm status
+      register: cluster_status
+      ignore_errors: true
+      when: inventory_hostname == "pve-srv-1"
+
+    - name: Create cluster on first node
+      command: pvecm create {{ pve_cluster_name }}
+      when:
+        - inventory_hostname == "pve-srv-1"
+        - cluster_status.failed
+
+    - name: Check if node is already in cluster
+      command: pvecm status
+      register: join_check
+      ignore_errors: true
+      when: inventory_hostname != "pve-srv-1"
+
+    - name: Join node to cluster
+      command: pvecm add 10.10.10.1 --use_ssh
+      when:
+        - inventory_hostname != "pve-srv-1"
+        - join_check.failed
