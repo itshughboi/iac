@@ -18,7 +18,7 @@ ansible --version
 ```sh
 sudo nano /etc/ansible/hosts
 ```
-See full /ansible/inventory/all_hosts.ini for template hosts.ini file
+See full /ansible/inventory/all_hosts.ini for template hosts.ini file // https://raw.githubusercontent.com/itshughboi/iac/refs/heads/main/ansible/inventory/all_hosts.ini
 
 ```
 [k3s]
@@ -41,9 +41,56 @@ See full /ansible/inventory/all_hosts.ini for template hosts.ini file
 ```
 
 
-inventory.yaml - https://raw.githubusercontent.com/itshughboi/iac/refs/heads/main/ansible/inventory/inventory.yaml
+inventory.yaml // https://raw.githubusercontent.com/itshughboi/iac/refs/heads/main/ansible/inventory/inventory.yaml
 ```
-
+all:
+  children:
+    proxmox:
+      hosts:
+        pve-srv-1:
+          ansible_host: 10.10.10.1
+          ansible_user: hughboi
+        pve-srv-2:
+          ansible_host: 10.10.10.2
+          ansible_user: hughboi
+        pve-srv-3:
+          ansible_host: 10.10.10.3
+          ansible_user: hughboi
+        pve-srv-3:
+          ansible_host: 10.10.10.3
+          ansible_user: hughboi
+    docker_hosts:
+      hosts:
+        docker:
+          ansible_host: 10.10.10.10
+          ansible_user: hughboi
+    k3s:
+      hosts:
+        k3s-master-1:
+          ansible_host: 10.10.30.1
+          ansible_user: hughboi
+        k3s-master-2:
+          ansible_host: 10.10.30.2
+          ansible_user: hughboi
+        k3s-master-3:
+          ansible_host: 10.10.30.3
+          ansible_user: hughboi
+        k3s-worker-1:
+          ansible_host: 10.10.20.104
+          ansible_user: hughboi
+        kes-worker-2:
+          ansible_host: 10.10.20.105
+          ansible_user: hughboi
+    storage:
+      hosts:
+        truenas:
+          ansible_host: 10.10.310.5
+          ansible_user: hughboi
+        pbs:
+          ansible_host: 10.10.10.6
+          ansible_user: hughboi
+  vars:
+    ansible_ssh_private_key_file: ~/.ssh/ansible
 ```
 
 
