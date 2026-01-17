@@ -1,7 +1,7 @@
 ### Ansible VM Setup
 
 > [!NOTE] Ansible Cloud-Init
-> Technically I do this after I get the cloud-init template up and going, and I full clone that
+> Create and full clone a cloud-init template
 ```sh
 sudo apt update
 sudo apt install software-properties-common -y
