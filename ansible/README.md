@@ -1,4 +1,4 @@
-### 1. Ansible VM Setup
+### Ansible VM Setup
 
 > [!NOTE] Ansible Cloud-Init
 > Technically I do this after I get the cloud-init template up and going, and I full clone that
@@ -12,6 +12,8 @@ sudo apt install ansible -y
 ```sh
 ansible --version
 ```
+
+### SSH Key Sharing
 
 2. Create new SSH keys. Leave password empty. We'll need ths for all other **Cloud-Init** machines
 ```sh
