@@ -99,6 +99,8 @@ all:
 - ^^ These allow you to target specific groups from this one inventory file when running playbooks
 
 
+***
+
 
 ### SSH Keys
 1. Create new SSH keys. Leave password empty so it can be automated. We'll need this for all other **Cloud-Init** machines
