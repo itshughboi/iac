@@ -102,7 +102,3 @@ Test: I may need to attempt ssh, accept the key host, get denied with public key
 ```
 ansible all -m ping --key-file ~/.ssh/ansible
 ```
-
-
-
- sudo like on ubuntu machines
