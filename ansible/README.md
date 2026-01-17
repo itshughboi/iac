@@ -41,7 +41,7 @@ See full /ansible/inventory/all_hosts.ini for template hosts.ini file
 ```
 
 
-inventory.yaml
+inventory.yaml - https://raw.githubusercontent.com/itshughboi/iac/refs/heads/main/ansible/inventory/inventory.yaml
 ```
 
 ```
