@@ -150,3 +150,36 @@ ansible_ssh_private_key_file=~/.ssh/ansible
 ```
 ansible all -m ping 
 ```
+
+
+
+***
+
+
+
+## Ansible Secrets
+
+1. Create a 'secrets_file.enc' that contains sensitive values
+```
+api_key: SuperSecret
+```
+
+2. Encrypt the secret
+```
+ansible vault encrypt secrets_file.enc
+```
+3. Add in vault password and you will see the file gets totally encrypted with AES-256
+##### Using playbook while referencing vault encrypted file
+1. Create a new fileecalled something like *secret* or *passwords*
+```
+ansible-playbook PLAYBOOKNAME -i inventory.yaml -e @secrets_file.enc --private-file ~/.ssh/ansible --ask-become-pass --vault-password-file secret
+```
+
+##### Editing encrypted secrets file
+```
+ansible-vault edit secrets_file.enc
+```
+- As soon as you write, it will encrypt it again
+
+
+
