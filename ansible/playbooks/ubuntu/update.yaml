@@ -1,5 +1,5 @@
 ---
-- hosts: k3s,docker
+- hosts: ubuntu
   become: true
   tasks:
     - name: Update apt repo and cache on all Debian/Ubuntu boxes
