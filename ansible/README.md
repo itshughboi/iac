@@ -18,25 +18,9 @@ ansible --version
 ```
 sudo nano /etc/ansible/hosts
 ```
+See /ansible/inventory/hosts.ini for template
 
-template:
-```
-[pve]
-10.10.10.1
-10.10.10.2
-10.10.10.3
-10.10.10.4
 
-[docker]
-10.10.10.10
-
-[k3s]
-10.10.30.11
-10.10.30.12
-10.10.30.13
-10.10.30.21
-10.10.30.22
-```
 
 3. Ping machines (test)
 ```sh
@@ -44,11 +28,12 @@ ansible all -m ping
 ```
 
 ### SSH Keys
-2. Create new SSH keys. Leave password empty. We'll need ths for all other **Cloud-Init** machines
+2. Create new SSH keys. Leave password empty so it can be automated. We'll need ths for all other **Cloud-Init** machines
 ```sh
 ssh-keygen -t ed25519 -C "ansible" -f ~/.ssh/ansible
 ls ~/.ssh/ansible*
 ```
+- You should see both private and public key here
 
 3. Restrict SSH permissions
 ```sh
@@ -62,10 +47,13 @@ cd ./.ssh
 ssh-copy-id -i ~/.ssh/ansible.pub hughboi@remote-machine-ip
 ```
 
-5. Ping with SSH key
+5. Test Ansible connetions with SSH
 ```sh
 ansible all -m ping --key-file ~/.ssh/ansible
 ```
+
+
+
 
 
 
