@@ -41,16 +41,6 @@ See full /ansible/inventory/all_hosts.ini for template hosts.ini file
 ```
 
 
-2. Ping machines (test)
-```sh
-ansible all -m ping
-```
-^^ I had a lot of issues with it using the default id_rsa but i always want to change the name of the cert to be like 'ansible' so i have to specify this when I run ansible commands
-```
-ansible all -m ping --private-key=ansible
-```
-
-
 
 ### SSH Keys
 1. Create new SSH keys. Leave password empty so it can be automated. We'll need this for all other **Cloud-Init** machines
@@ -83,7 +73,7 @@ cd ./.ssh
 ssh-copy-id -i ~/.ssh/ansible.pub hughboi@remote-machine-ip
 ```
 
-5. Test Ansible connections with SSH
+5. Test Ansible connections with SSH key
 ```sh
 ansible all -m ping --private-key ~/.ssh/ansible
 ```
