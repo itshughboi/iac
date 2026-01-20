@@ -186,7 +186,7 @@ ansible-vault edit secrets_file.enc
 
 
 
-##### Playbook Run Example (OS Update)
+## Playbook Run Example (OS Update)
 1. go onto ansible machine and cd to playbook
 ```
 ansible-playbook OS-update.yml -i inventory.yml --key-file ~/.ssh/ansible
