@@ -43,7 +43,7 @@ Option 1 (Not-Recommended): Use default ansible host file (above), See full /ans
 ```
 
 **All Vars**
-- Add this to the top of the .ini to apply global variables
+- Add this to the top of the .ini to apply global variables. Essentially this changes inventory to use specified Ansible key file for authentication
 ```
 [all:vars]
 ansible_user='hughboi'
