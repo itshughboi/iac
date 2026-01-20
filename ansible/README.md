@@ -13,7 +13,7 @@ sudo apt install ansible -y
 ansible --version
 ```
 
-### Inventory
+### Inventory (yaml or ini)
 This is a list of machines that the playbook can target
 - Default location for ansible host file
 ```sh
@@ -21,6 +21,7 @@ sudo nano /etc/ansible/hosts
 ```
 Option 1 (Not-Recommended): Use default ansible host file (above), See full /ansible/inventory/all_hosts.ini for template hosts.ini file // https://raw.githubusercontent.com/itshughboi/iac/refs/heads/main/ansible/inventory/all_hosts.ini
 
+.ini syntax
 ```
 [k3s]
 10.10.30.1
@@ -43,6 +44,8 @@ Option 1 (Not-Recommended): Use default ansible host file (above), See full /ans
 
 
 Option 2 (Recommended): inventory.yaml // https://raw.githubusercontent.com/itshughboi/iac/refs/heads/main/ansible/inventory/inventory.yaml. Gives a better granular way to control which hosts are group to what, rather than doing it from the default location
+
+.yaml syntax
 ```
 all:
   children:
