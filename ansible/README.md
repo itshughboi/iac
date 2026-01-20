@@ -14,11 +14,11 @@ ansible --version
 ```
 
 ### Inventory
-1. While you can use the Hosts file by running the below command, it's better to create a new inventory.yaml file to target machines better. Below though is if I want to use hosts file
+- Default location for ansible host file
 ```sh
 sudo nano /etc/ansible/hosts
 ```
-Option 1: See full /ansible/inventory/all_hosts.ini for template hosts.ini file // https://raw.githubusercontent.com/itshughboi/iac/refs/heads/main/ansible/inventory/all_hosts.ini
+Option 1 (Not-Recommended): Use default ansible host file (above), See full /ansible/inventory/all_hosts.ini for template hosts.ini file // https://raw.githubusercontent.com/itshughboi/iac/refs/heads/main/ansible/inventory/all_hosts.ini
 
 ```
 [k3s]
@@ -41,7 +41,7 @@ Option 1: See full /ansible/inventory/all_hosts.ini for template hosts.ini file 
 ```
 
 
-Option 2: inventory.yaml // https://raw.githubusercontent.com/itshughboi/iac/refs/heads/main/ansible/inventory/inventory.yaml
+Option 2 (Recommended): inventory.yaml // https://raw.githubusercontent.com/itshughboi/iac/refs/heads/main/ansible/inventory/inventory.yaml
 ```
 all:
   children:
