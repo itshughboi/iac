@@ -14,6 +14,7 @@ ansible --version
 ```
 
 ### Inventory
+This is a list of machines that the playbook can target
 - Default location for ansible host file
 ```sh
 sudo nano /etc/ansible/hosts
@@ -41,7 +42,7 @@ Option 1 (Not-Recommended): Use default ansible host file (above), See full /ans
 ```
 
 
-Option 2 (Recommended): inventory.yaml // https://raw.githubusercontent.com/itshughboi/iac/refs/heads/main/ansible/inventory/inventory.yaml
+Option 2 (Recommended): inventory.yaml // https://raw.githubusercontent.com/itshughboi/iac/refs/heads/main/ansible/inventory/inventory.yaml. Gives a better granular way to control which hosts are group to what, rather than doing it from the default location
 ```
 all:
   children:
@@ -183,5 +184,16 @@ ansible-vault edit secrets_file.enc
 ```
 - As soon as you write, it will encrypt it again
 
+
+
+##### Playbook Run Example (OS Update)
+1. go onto ansible machine and cd to playbook
+```
+ansible-playbook OS-update.yml -i inventory.yml --key-file ~/.ssh/ansible
+```
+^^ This only works if you have key authentication setup. Otherwise, run the following. You would also do this if you need to become sudo with the '--ask-become-pass'
+```
+ansible-playbook OS-update.yml -i inventory.yml --key-file ~/.ssh/ansible --ask-become-pass
+```
 
 
