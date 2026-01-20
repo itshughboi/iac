@@ -42,6 +42,17 @@ Option 1 (Not-Recommended): Use default ansible host file (above), See full /ans
 10.10.30.13
 ```
 
+**All Vars**
+- Add this to the top of the .ini to apply global variables
+```
+[all:vars]
+ansible_user='hughboi'
+ansible_become=yes
+ansible_become_method=sudo
+ansible_ssh_private_key_file=~/.ssh/ansible
+```
+
+
 
 Option 2 (Recommended): inventory.yaml // https://raw.githubusercontent.com/itshughboi/iac/refs/heads/main/ansible/inventory/inventory.yaml. Gives a better granular way to control which hosts are group to what, rather than doing it from the default location
 
