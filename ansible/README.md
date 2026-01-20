@@ -200,3 +200,53 @@ ansible-vault edit secrets_file.enc
 
 
 
+## Ansible Secrets Continued...
+
+File Setup:
+(on ansible host): /home/hughboi/secrets/APPS << all secrets for each app split up
+/home/hughboi/secrets/global << global variables I can use throughout all applications
+
+### Create secret
+1. Setup the vault on ansible
+```
+ansible-vault create group_vars/docker/mealie.yml
+```
+
+> [!NOTE] group_vars
+> Ansible auto loads variables from a group_vars/ directory **if the name matches a group of host in your inventory**. In this case **docker** matches a host name in /home/hughboi/inventory/hosts.yml
+
+2. Create secrets file:
+```
+ansible-vault create group_vars/appname/vault.yml
+```
+
+> [!NOTE] appname
+> appname in the above command should match a group or host from inventory.yml
+
+
+2.  Now put in the .env values into this app-vault.yml file
+3. Then in Ansible playbook, you can reference the values like such
+```
+- name: Deploy Immich
+  hosts: dockerhosts
+  vars:
+    app_name: immich
+  tasks:
+    - name: Create .env file
+      template:
+        src: env.j2
+        dest: "/home/hughboi/code/docker/APPLICATION/{{ app_name }}/.env"
+      vars:
+        env_vars:
+          - { name: "DB_PASSWORD", value: "{{ vault_immich_db_password }}" }
+          - { name: "API_KEY", value: "{{ vault_immich_api_key }}" }
+}
+```
+
+
+### **What happens when Ansible runs:**
+- Ansible decrypts the `vault.yml` secrets (like passwords, API keys).
+- It uses those values to **generate a `.env` file** or pass them inline to your `docker-compose` command.
+- The container is brought up using `docker compose`, and it reads the `.env` file during startup.
+- Once the container is up, the `.env` file **still exists on the host filesystem** unless you explicitly remove it as part of the playbook.
+
