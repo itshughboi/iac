@@ -128,57 +128,39 @@ ansible all -m ping --key-file ~/.ssh/ansible
 
 ```
 Host 10.10.30.1
-
   User hughboi
-
   IdentityFile ~/.ssh/ansible  
 
 Host 10.10.30.2
-
   User hughboi
-
   IdentityFile ~/.ssh/ansible  
 
 Host 10.10.30.3
-
   User hughboi
-
   IdentityFile ~/.ssh/ansible  
 
 Host 10.10.30.11
-
   User hughboi
-
   IdentityFile ~/.ssh/ansible
 
 Host 10.10.30.12
-
   User hughboi
-
   IdentityFile ~/.ssh/ansible
 
 Host 10.10.30.13
-
   User hughboi
-
   IdentityFile ~/.ssh/ansible  
 
 Host 10.10.30.21
-
   User hughboi
-
   IdentityFile ~/.ssh/ansible
 
 Host 10.10.30.22
-
   User hughboi
-
   IdentityFile ~/.ssh/ansible
 
 Host 10.10.30.23
-
   User hughboi
-
   IdentityFile ~/.ssh/ansible
 ```
 
