@@ -1,5 +1,5 @@
 ---
-- hosts: ubuntu
+- hosts: hughboi
   become: true
   tasks:
     - name: Update apt repo and cache on all Debian/Ubuntu boxes
