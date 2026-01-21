@@ -1,7 +1,29 @@
 ## Instructions
 1. Edit values under group_vars/all.yaml
 2. Add add machines to hosts.ini
-3. Run the playbook
+3. On ansible machine add this to .ssh/config
+```
+Host 10.10.40.1
+  User hughboi
+  IdentityFile ~/.ssh/ansible  
+Host 10.10.40.2
+  User hughboi
+  IdentityFile ~/.ssh/ansible  
+Host 10.10.40.3
+  User hughboi
+  IdentityFile ~/.ssh/ansible  
+Host 10.10.40.11 
+  User hughboi
+  IdentityFile ~/.ssh/ansible
+Host 10.10.40.12
+  User hughboi
+  IdentityFile ~/.ssh/ansible
+Host 10.10.40.13
+  User hughboi
+  IdentityFile ~/.ssh/ansible  
+```
+
+4. Run the playbook
 ```
 ansible-playbook site.yaml -i inventory/hosts.ini --key-file ~/.ssh/ansible
 ```
