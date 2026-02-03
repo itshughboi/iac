@@ -1,16 +1,20 @@
 terraform {
-  required_version = ">= 0.14"
   required_providers {
     proxmox = {
-      source  = "registry.example.com/telmate/proxmox"
-      version = ">= 1.0.0"
+      source  = "bpg/proxmox"
+      version = "0.66.0"
     }
   }
 }
 
+# Define the variable (The Placeholder)
+variable "proxmox_api_token" {
+  type      = string
+  sensitive = true # This hides the value from console logs
+}
+
 provider "proxmox" {
-    pm_tls_insecure = true
-    pm_api_url = "https://proxmox.jimsgarage.co.uk/api2/json"
-    pm_api_token_secret = "SUPER_SECRET_API_TOKEN"
-    pm_api_token_id = "root@pam!terraform"
+  endpoint  = "https://10.10.10.1:8006/" 
+  api_token = var.proxmox_api_token       # Reference the variable
+  insecure  = true 
 }
