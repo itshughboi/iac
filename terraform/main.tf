@@ -26,7 +26,7 @@ resource "proxmox_virtual_machine" "mgmt_vm" {
     ip_config {
       ipv4 {
         # Hardcoding the IP for reliability
-        address = "10.10.10.8" # Adjust the subnet/IP to match your network
+        address = "10.10.10.8/24" # Adjust the subnet/IP to match your network
         gateway = "10.10.10.254"    # Your router/gateway IP
       }
     }
