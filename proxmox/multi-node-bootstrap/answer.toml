@@ -7,6 +7,7 @@ reboot_on_error = false
 
 [network]
 source = "from-dhcp" 
+hostname = "pve-srv-1" # proxmox first bootstrap node
 
 [disk]
 selection = ["nvme0n1", "sda"] # List of possibilities. Proxmox will try in order and pick first one it finds
