@@ -2,7 +2,7 @@ resource "proxmox_virtual_machine" "mgmt_vm" {
   name        = "Athena"
   description = "Management VM - Gitea, DNS, Ansible"
   tags        = ["infrastructure", "management"]
-  node_name   = "pve" 
+  node_name   = "pve-srv-1" # master node name
   vm_id       = 100
 
   clone {
