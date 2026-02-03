@@ -1,5 +1,5 @@
 resource "proxmox_virtual_machine" "mgmt_vm" {
-  name        = "Athena" # Your Command Center
+  name        = "Athena"
   description = "Management VM - Gitea, DNS, Ansible"
   tags        = ["infrastructure", "management"]
   node_name   = "pve" 
@@ -11,7 +11,7 @@ resource "proxmox_virtual_machine" "mgmt_vm" {
 
   cpu {
     cores = 4
-    type  = "host" # Pass-through physical CPU features
+    type  = "host" 
   }
 
   memory {
@@ -25,7 +25,9 @@ resource "proxmox_virtual_machine" "mgmt_vm" {
   initialization {
     ip_config {
       ipv4 {
-        source = "dhcp" # Network comes from DHCP
+        # Hardcoding the IP for reliability
+        address = "10.10.10.8" # Adjust the subnet/IP to match your network
+        gateway = "10.10.10.254"    # Your router/gateway IP
       }
     }
 
