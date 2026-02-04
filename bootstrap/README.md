@@ -12,3 +12,6 @@ Unifi Router Functional
 
 1. Bootstrap netbootxyz (iPXE server) and terraform  on spare device
 2. Run unifi terraform files to setup VLANs, static IPs and DHCP
+
+
+
