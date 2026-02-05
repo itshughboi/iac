@@ -28,7 +28,7 @@ resource "proxmox_virtual_environment_vm" "k3s_longhorn" {
   disk {
     datastore_id = "local-lvm"
     interface    = "scsi0"
-    size         = 50
+    size         = 300 # increased space for longhorn
   }
 
   network_device {
