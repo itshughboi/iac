@@ -2,7 +2,7 @@ resource "proxmox_virtual_environment_vm" "athena" {
   name        = "athena" # Case sensitive
   description = "Management VM - Gitea, DNS, Ansible"
   tags        = ["infrastructure", "management"]
-  node_name   = "pve-srv-1" # master node name
+  node_name   = "var.proxmox_master" # master node name
   vm_id       = 100
 
   #agent       = 1 # QEMU option for speed + proxmox console viewing

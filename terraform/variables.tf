@@ -10,3 +10,17 @@ variable "ssh_public_key" {
 variable "proxmox_api_url" {
   type      = string
 }
+
+variable "proxmox_master" {
+  type      = string
+}
+
+variable "proxmox_nodes_k3s" { 
+  type      = list(string)  # needs to be list(string) if defining multiple nodes
+  description = "pve-srv-2, pve-srv-3, pve-srv-4"
+}
+
+variable "proxmox_all" {
+  type      = list(string)
+  description = "All proxmox nodes"
+}

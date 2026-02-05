@@ -35,3 +35,7 @@ terraform apply
 ```
 terraform destroy -target=proxmox_virtual_environment_vm.athena
 ```
+
+
+### VM Management
+- VM's created by Terraform should NOT be edited in the GUI. Proxmox and Terraform don't share a state file, so if i change something on the Proxmox GUI, it'll lose tracking on terraform and I'll run into issues
