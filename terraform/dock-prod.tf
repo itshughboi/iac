@@ -3,9 +3,9 @@ resource "proxmox_virtual_environment_vm" "dock-prod" {
   description = "Docker"
   tags        = ["docker"]
   node_name   = "var.proxmox_master" # master node name
-  vm_id       = 1110
+  vm_id       = 110
 
-  #agent       = 1 # QEMU option for speed + proxmox console viewing
+  #agent       = 1 # QEMU option for speed + proxmox console viewing. I think this syntax is wrong
 
 # Ensure the VM starts after creation
   started = true
