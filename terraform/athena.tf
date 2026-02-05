@@ -1,9 +1,11 @@
-resource "proxmox_virtual_machine" "mgmt_vm" {
+resource "proxmox_virtual_machine" "athena" {
   name        = "Athena"
   description = "Management VM - Gitea, DNS, Ansible"
   tags        = ["infrastructure", "management"]
   node_name   = "pve-srv-1" # master node name
   vm_id       = 100
+
+  agent       = 1 # QEMU option for speed + proxmox console viewing
 
 # Ensure the VM starts after creation
   started = true
@@ -12,9 +14,8 @@ resource "proxmox_virtual_machine" "mgmt_vm" {
     prevent_destroy = true
 }
 
-
   clone {
-    vm_id = 9999
+    vm_id = 9999 # Pre-existing VM template made with Packer we are cloning from
     full = true
   }
 
@@ -27,14 +28,14 @@ resource "proxmox_virtual_machine" "mgmt_vm" {
     dedicated = 8192
   }
 
-  disk {
+  disk {  # VERY IMPORTANT. NEEDS TO MATCH WHAT THE TEMPLATE IS ALREADY USING. Otherwise a secondary disk will be created
     datastore_id = "local-lvm" # Change to your storage name (e.g., 'ssd-storage')
     interface    = "scsi0" # disk that the template uses
     size         = 50 # Size in GB
   }
 
   network_device {
-    bridge = "vmbr0"
+    bridge = "vmbr1" # typically vmbr0 but my pve-srv-1 uses vmbr1 for VLANs
   }
 
   initialization {

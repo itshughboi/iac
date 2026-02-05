@@ -4,5 +4,9 @@ variable "proxmox_api_token" {
 }
 
 variable "ssh_public_key" {
-  type = string
+  type      = string
+}
+
+variable "proxmox_api_url" {
+  type      = string
 }
