@@ -5,8 +5,17 @@ resource "proxmox_virtual_machine" "mgmt_vm" {
   node_name   = "pve-srv-1" # master node name
   vm_id       = 100
 
+# Ensure the VM starts after creation
+  started = true
+
+  lifecycle {
+    prevent_destroy = true
+}
+
+
   clone {
     vm_id = 9999
+    full = true
   }
 
   cpu {
@@ -18,11 +27,22 @@ resource "proxmox_virtual_machine" "mgmt_vm" {
     dedicated = 8192
   }
 
+  disk {
+    datastore_id = "local-lvm" # Change to your storage name (e.g., 'ssd-storage')
+    interface    = "scsi0" # disk that the template uses
+    size         = 50 # Size in GB
+  }
+
   network_device {
     bridge = "vmbr0"
   }
 
   initialization {
+    datastore_id = "local-lvm" # Where the Cloud-init ISO will be stored temporarily
+
+    dns {
+      servers = ["9.9.9.9", "1.1.1.1"]
+    }
     ip_config {
       ipv4 {
         # Hardcoding the IP for reliability
