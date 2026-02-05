@@ -35,6 +35,10 @@ terraform apply
 ```
 terraform destroy -target=proxmox_virtual_environment_vm.athena
 ```
+- To destroy everything in the playbook, run:
+```
+terraform destroy
+```
 
 
 ### VM Management
