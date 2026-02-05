@@ -1,3 +1,3 @@
-proxmox_api_token = "terraform@pve!TOKEN_HERE"
-ssh_public_key    = " "
+proxmox_api_token = "terraform@pve!Token_Name=TOKEN_HERE"
+ssh_public_key    = " " #upload public key here
 proxmox_api_url   = "https://10.10.10.1:8006/" 

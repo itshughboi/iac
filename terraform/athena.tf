@@ -1,21 +1,21 @@
-resource "proxmox_virtual_machine" "athena" {
-  name        = "Athena"
+resource "proxmox_virtual_environment_vm" "athena" {
+  name        = "athena" # Case sensitive
   description = "Management VM - Gitea, DNS, Ansible"
   tags        = ["infrastructure", "management"]
   node_name   = "pve-srv-1" # master node name
   vm_id       = 100
 
-  agent       = 1 # QEMU option for speed + proxmox console viewing
+  #agent       = 1 # QEMU option for speed + proxmox console viewing
 
 # Ensure the VM starts after creation
   started = true
 
-  lifecycle {
-    prevent_destroy = true
-}
+#  lifecycle {
+#    prevent_destroy = true
+#}
 
   clone {
-    vm_id = 9999 # Pre-existing VM template made with Packer we are cloning from
+    vm_id = 3333 # Pre-existing VM template made with Packer we are cloning from
     full = true
   }
 
