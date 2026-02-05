@@ -32,7 +32,7 @@ resource "proxmox_virtual_environment_vm" "k3s_worker" {
   }
 
   network_device {
-    bridge = "vmbr1"
+    bridge = "vmbr0"
     vlan_id = 3
   }
 
