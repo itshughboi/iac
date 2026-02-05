@@ -8,7 +8,7 @@ resource "proxmox_virtual_environment_vm" "k3s_worker" {
   description = "k3s Control Plane Node"
   tags        = ["k3s", "worker", "cluster"]
   node_name   = "var.proxmox_nodes_k3s" #"proxmox_nodes" #<< defined in terraform.tfvars  # This is across all nodes. You can specify a Proxmox host to target that only
-  vm_id       = 601 + count.index
+  vm_id       = 611 + count.index
   started     = true
 
   clone {
