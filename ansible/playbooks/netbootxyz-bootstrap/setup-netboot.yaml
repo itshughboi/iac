@@ -1,0 +1,66 @@
+---
+- name: Configure Le Potato for netboot.xyz
+  hosts: lepotato
+  become: true
+  vars:
+    docker_version: "20.10"  # optional, default latest works
+    netbootxyz_image: "ghcr.io/netbootxyz/netboot.xyz:latest"
+    netboot_container_name: "netbootxyz"
+    netboot_ports:
+      - "69:69/udp"
+      - "80:80"
+      - "4011:4011/udp"
+
+  tasks:
+
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Upgrade all packages
+      apt:
+        upgrade: dist
+        autoremove: yes
+
+    - name: Install dependencies for Docker
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg-agent
+          - software-properties-common
+        state: present
+
+    - name: Add Docker GPG key
+      ansible.builtin.shell: |
+        curl -fsSL https://get.docker.com | sh
+      args:
+        creates: /usr/bin/docker
+
+    - name: Ensure user is in docker group
+      user:
+        name: "{{ ansible_user }}"
+        groups: docker
+        append: yes
+
+    - name: Ensure Docker service is running
+      systemd:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Pull netboot.xyz Docker image
+      docker_image:
+        name: "{{ netbootxyz_image }}"
+        source: pull
+
+    - name: Run netboot.xyz container
+      docker_container:
+        name: "{{ netboot_container_name }}"
+        image: "{{ netbootxyz_image }}"
+        state: started
+        restart_policy: unless-stopped
+        ports: "{{ netboot_ports }}"
+        published_ports: yes
+        detach: true
