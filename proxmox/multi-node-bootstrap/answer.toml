@@ -2,7 +2,7 @@
 keyboard = "us"
 timezone = "America/Denver"
 # Generate a hashed password: printf "yourpassword" | openssl passwd -6 -stdin
-root_password = "$6$rTFai9692MmsAq8I$6y7kogOLaIgjCYwNcMyHmSuMUqXXsU2baJbgkR9d1wuPpwj7Yx8bVhPADOBuHU7qXf.42wVUmyX4y3s4MBtLg/" 
+root_password = "" 
 reboot_on_error = false
 
 [network]
