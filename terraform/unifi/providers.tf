@@ -20,11 +20,12 @@ provider "unifi" {
 # -------------------------
 locals {
   networks = {
-    "management"   = { vlan = 1,  subnet = "10.10.10.0/24",  purpose = "corporate" }
-    "provisioning" = { vlan = 2,  subnet = "10.10.20.0/24",  purpose = "corporate" }
-    "k3s"          = { vlan = 3,  subnet = "10.10.30.0/24",  purpose = "corporate" }
-    "vpn"          = { vlan = 7,  subnet = "10.10.70.0/24",  purpose = "corporate" }
-    "torrent"      = { vlan = 49, subnet = "172.16.20.0/24", purpose = "corporate" }
+    "management"     = { vlan = 10, subnet  = "10.10.10.0/24", purpose = "SSH, Web UI, Proxmox mgmt", firewall = var.firewall_rules.management }
+    "cluster"        = { vlan = 20, subnet  = "10.10.20.0/24", purpose = "Proxmox Corosync / HA cluster", firewall = var.firewall_rules.cluster }
+    "k3s"            = { vlan = 30, subnet  = "10.10.30.0/24", purpose = "k3s node traffic / pods", firewall = var.firewall_rules.k3s }
+    "storage"        = { vlan = 40, subnet  = "10.10.40.0/24", purpose = "TrueNAS, PBS, NFS/iSCSI", firewall = var.firewall_rules.storage }
+    "provisioning"   = { vlan = 99, subnet  = "10.10.99.0/24", purpose = "PXE / NetbootXYZ", firewall = var.firewall_rules.provisioning }
+    "torrent"        = { vlan = 49, subnet  = "172.16.20.0/24", purpose = "Isolated P2P / untrusted traffic", firewall = var.firewall_rules.torrent }
   }
 }
 
