@@ -7,12 +7,15 @@ terraform {
   }
 }
 
+### Provider options from official documentation; https://registry.terraform.io/providers/ubiquiti-community/unifi/latest/docs
+
 provider "unifi" {
-  api_url        = "https://10.10.10.10:8443"    # your UniFi Controller URL
+  api_url        = var.api_url                   # your UniFi Controller URL
+  api_key        = var.api_key
   username       = var.unifi_username            # Controller username
   password       = var.unifi_password            # Controller password
-  site           = "default"                     # usually 'default', change if needed
-  allow_insecure = true                          # set to true if self-signed SSL
+  allow_insecure = var.insecure                  # needs to be true if self-signed SSL
+  site           = var.unifi_site                # only change if not default site
 }
 
 
@@ -23,6 +26,11 @@ resource "unifi_network" "production" {
   purpose = each.value.purpose
   vlan_id = each.value.vlan
   subnet  = each.value.subnet
+
+
+## Feature mapping
+  igmp_snooping = each.value.igmp
+  dhcp_guarded  = each.value.guard
 
 ## DHCP Range
   dhcp_enabled = true

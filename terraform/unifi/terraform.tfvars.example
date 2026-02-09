@@ -1,2 +1,7 @@
+api_url = "https://10.10.10.10:8006/"
+api_key = "value"
 unifi_username = ""
 unifi_password = ""
+allow_insecure = true
+unifi_site = "default"
+

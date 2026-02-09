@@ -1,4 +1,5 @@
-Setup:
+## Setup:
+**Documentation**: https://registry.terraform.io/providers/ubiquiti-community/unifi/latest/docs/resources/firewall_rule
 1. Provider config (handshake)
 2. Network definitions
 3. Firewall rules
@@ -8,7 +9,6 @@ Setup:
 - `firewall.tf`: Firewall rules
 - `variables.tf`: references `terraform.tfvars`
 - `terraform.tfvars`: inside of .git.ignore. Contains actual values. Copy `terraform.tfvars.example` to `terraform.tfvars` 
-
 
 
 
