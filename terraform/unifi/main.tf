@@ -10,12 +10,15 @@ terraform {
 ### Provider options from official documentation; https://registry.terraform.io/providers/ubiquiti-community/unifi/latest/docs
 
 provider "unifi" {
-  api_url        = var.api_url                   # your UniFi Controller URL
-  api_key        = var.api_key
+  #api_key        = var.api_key # Used with cloud controller
+
   username       = var.unifi_username            # Controller username
   password       = var.unifi_password            # Controller password
-  allow_insecure = var.insecure                  # needs to be true if self-signed SSL
+  
+  api_url        = var.api_url                   # your UniFi Controller URL
   site           = var.unifi_site                # only change if not default site
+  allow_insecure = var.insecure                  # needs to be true if self-signed SSL
+
 }
 
 

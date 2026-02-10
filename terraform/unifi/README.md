@@ -1,6 +1,16 @@
 ## Setup:
 **Documentation**: https://registry.terraform.io/providers/ubiquiti-community/unifi/latest/docs/resources/firewall_rule
-1. Provider config (handshake)
+
+### Authentication
+1. Authenticate to Unifi:
+    - **API Key** (Cloud-Managed) 
+        - Unifi -> Admin & Users -> Terraform -> Create API Key
+    - **Local Account** (Self-Hosted))
+        - Limited Admin
+        - 2FA disabled
+
+
+1. Provider config (handshake) - API key or user/password
 2. Network definitions
 3. Firewall rules
 

@@ -36,13 +36,3 @@ locals {
     ]
   }
 
-  # Flatten all the rules into a single map keyed by unique name
-  firewall_rules = {
-    for zone, rules in local.zone_rules :
-    for rule in rules :
-    "${rule.source}-${rule.dest}-${replace(rule.ports, ",", "-")}-${lower(rule.proto)}" => merge(rule, {
-      name   = "${rule.source}-${rule.dest}-${lower(rule.proto)}"
-      action = lookup(rule, "action", "accept") # default to accept if not specified
-    })
-  }
-}
