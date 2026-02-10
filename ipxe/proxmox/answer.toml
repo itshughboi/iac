@@ -1,0 +1,20 @@
+#!ipxe
+
+set live_endpoint http://10.10.99.99/netbootxyz
+
+# Set hostname + IP based on MAC
+iseq ${net0/mac} c8:ff:bf:00:80:7c && set hostname pve-srv-2 && set ip 10.10.10.2
+iseq ${net0/mac} 1c:83:41:40:ff:0b && set hostname pve-srv-3 && set ip 10.10.10.3
+iseq ${net0/mac} c8:ff:bf:03:f3:51 && set hostname pve-srv-4 && set ip 10.10.10.4
+
+# Kernel + initrd served over HTTP
+kernel ${live_endpoint}/vmlinuz vga=791 \
+      initrd=${live_endpoint}/initrd.img \
+      auto=true \
+      url=${live_endpoint}/answer.toml \
+      hostname=${hostname} \
+      ip=${ip} \
+      gateway=10.10.10.254 \
+      nameserver=9.9.9.9
+
+boot

@@ -1,0 +1,16 @@
+#!ipxe
+
+set base http://10.10.99.100:8080
+
+# Normalize MAC
+set mac ${net0/mac}
+iseq ${mac} 04:7c:16:87:65:66 && chain ${base}/ipxe/pve-srv-1.ipxe
+iseq ${mac} c8:ff:bf:00:80:7c && chain ${base}/ipxe/pve-srv-2.ipxe
+iseq ${mac} 1c:83:41:40:ff:0b && chain ${base}/ipxe/pve-srv-3.ipxe
+iseq ${mac} c8:ff:bf:03:f3:50 && chain ${base}/ipxe/pve-srv-4.ipxe
+
+
+# Fallback
+echo Unknown host: ${mac}
+sleep 3
+exit

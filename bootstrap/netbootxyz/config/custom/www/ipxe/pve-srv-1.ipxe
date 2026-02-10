@@ -1,0 +1,10 @@
+#!ipxe
+
+set base http://10.10.99.100:8080
+
+kernel ${base}/proxmox/linux \
+  autoinstall \
+  ds=nocloud-net;s=${base}/proxmox/pve-srv-1/ \
+  ip=dhcp ---
+initrd ${base}/proxmox/initrd
+boot

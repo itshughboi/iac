@@ -2,6 +2,16 @@
 
 This document outlines the end-to-end strategy for building a professional-grade, automated homelab using a 4-node Proxmox cluster (1 x Management Tower, 3 x Mini-PC Compute Nodes).
 
+#### Basic Overview
+1. Configure Unifi with Terraform
+2. Bootstrap bare metal using netbootxyz
+3. Configure proxmox template with Packer
+4. Create ansible vm using Terraform using the Packer template
+5. Configure Proxmox Cluster with Ansible
+6. Stand up k3s vm's using Packer
+7. Setup k3s cluster using Ansible
+
+
 ---
 
 ## 🏗️ Stage 1: The Hardware Foundation
