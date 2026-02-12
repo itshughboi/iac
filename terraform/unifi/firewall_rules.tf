@@ -35,4 +35,4 @@ locals {
       { proto = "ALL", ports = "ALL", source = "torrent", dest = "provisioning", action = "deny" }
     ]
   }
-
+}

@@ -53,7 +53,7 @@ resource "unifi_network" "production" {
     for_each = each.key == "provisioning" ? [1] : []  # only applies to network "provisioning"
     content {
       option = 66  # TFTP server for PXE
-      value  = "10.10.99.99"  # IP of your NetbootXYZ host
+      value  = "10.10.99.100"  # IP of your NetbootXYZ host
     }
     # Optionally add 67: bootfile name, etc.
   }
