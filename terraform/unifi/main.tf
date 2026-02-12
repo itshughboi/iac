@@ -10,14 +10,13 @@ terraform {
 ### Provider options from official documentation; https://registry.terraform.io/providers/ubiquiti-community/unifi/latest/docs
 
 provider "unifi" {
-  #api_key        = var.api_key # Used with cloud controller
-
-  username       = var.unifi_username            # Controller username
-  password       = var.unifi_password            # Controller password
+  api_key        = var.api_key != "" ? var.api_key : null         #Used with cloud controller. This rule says use API if available, else use username/password
+  username       = var.api_key == "" ? var.unifi_username : null           # Controller username. Rule says: Only use username if NO API key
+  password       = var.api_key == "" ? var.unifi_password : null          # Controller password. Rule says: Only use password if NO API key
   
   api_url        = var.api_url                   # your UniFi Controller URL
   site           = var.unifi_site                # only change if not default site
-  allow_insecure = var.insecure                  # needs to be true if self-signed SSL
+  allow_insecure = var.allow_insecure            # needs to be true if self-signed SSL
 
 }
 
@@ -36,9 +35,11 @@ resource "unifi_network" "production" {
   dhcp_guarded  = each.value.guard
 
 ## DHCP Range
-  dhcp_enabled = true
-  dhcp_start   = cidrhost(each.value.subnet, 100)
-  dhcp_stop    = cidrhost(each.value.subnet, 200)
+  dhcp_enabled = each.key == "provisioning"     #  dhcp_enabled = true
+
+  dhcp_start = each.key == "provisioning" ? "10.10.99.100" : null     #  dhcp_start   = cidrhost(each.value.subnet, 100)
+  dhcp_stop  = each.key == "provisioning" ? "10.10.99.200" : null     #  dhcp_stop    = cidrhost(each.value.subnet, 200)
+
 
 
 ## PXE: All networks point to 10.10.99.100
