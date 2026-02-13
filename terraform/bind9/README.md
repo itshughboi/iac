@@ -1,5 +1,10 @@
 Documentation: https://registry.terraform.io/providers/hashicorp/dns/latest/docs
 
+# Purpose
+- The whole reason behind wanting/needing to do this is if I'm standing up a lot of test machines or deploying servers with terraform, when you integrate with terraform, it automatically configures a DNS record for that resource. Pretty dope. No more ssh'ing into bind9 server to edit the config file. Just terraform plan and apply. It gives you git control, declarative state, and rebuildable. Honestly it's useful if you use terraform a lot already. Am I really going to use this? Probably not. Cool to know how to do though if I want to implement it. I just am too small scale currently, it's just not worth the time
+
+
+
 ### T-Sig Key Authentication
 **RFC 8945: Secret Key Transaction Authentication for DNS**
 - Multiple hash algorithms supported
